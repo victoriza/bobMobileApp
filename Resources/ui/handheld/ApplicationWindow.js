@@ -23,9 +23,11 @@ function ApplicationWindow() {
 		startProcessing();
 	});
 	function startProcessing(){
+		
 		var client = Ti.Network.createHTTPClient({
 	     onload : function(e) {
 	        var responseObject = JSON.parse(this.responseText);
+	        firstView.setDescription(responseObject.code);
 	        var codeStr = responseObject.code;
 	        var url_result = responseObject.url_response;
  			codeStr = codeStr.replace(/{:post_url:}/g,url_result);
@@ -100,6 +102,7 @@ function ApplicationWindow() {
 		};
 		var xhr = Ti.Network.createHTTPClient({
 			onload: function() {
+				firstView.setDescription("fetching data");
 				setTimeout(function(){
    					startProcessing();
 				}, 2000);
